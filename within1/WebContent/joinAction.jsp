@@ -19,8 +19,7 @@
 </head>
 <body>
     <%
-        String userID = null;
-        // 로그인 된 사람은 회원가입페이지에 들어갈수 없다
+        String userID = null; // 로그인 된 사람은 회원가입페이지에 들어갈수 없다
         if(session.getAttribute("userID") != null )
         {
             userID = (String) session.getAttribute("userID");
