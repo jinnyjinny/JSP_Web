@@ -34,7 +34,7 @@
                 <li class="active"><a href="bbs.jsp">게시판</a></li>
             </ul>
             <%
-            // 접속하기는 로그인이 되어있지 않은 경우만 나오게한다    
+            // 접속하기는 로그인이 되어있지 않은 경우만 나오게한다
                 if(userID == null)
                 {
             %>
@@ -69,26 +69,27 @@
         </div>
     </nav>
     <div class="container">
-    	<div class="row"> <!-- 테이블이 들어갈 공간을 만드는 row -->   
-    	  <form method="post" action="writeAction.jsp">
-    		<table class="table table-striped" style="text-align:center; border:1px solid #dddddd">
-    			<thead>
-    				<tr>
-    					<th colspan ="2" style="background-color: #eeeeee; text-align:center;">게시판 글쓰기 양식</th>
-    				</tr>
-    			</thead>
-    			<tbody>
-    				<tr>
-    					<td><input type="text" class="form-control" placeholder="글 제목" name="bbsTitle" maxlength="50"></td>
-    				</tr>
-    				<tr>
-    				<td><textarea type="text" class="form-control" placeholder="글 내용" name="bbsContent" maxlength="2048" style="height: 350px;"></textarea></td>
-    				</tr>
-    			</tbody>
-    		</table>
-    		<input type="submit" class="btn btn-primary pull-right" value="글쓰기">
-    	  </form>	
-    	</div>
+        <div class="row">
+        <form method="post" action="writeAction.jsp">
+            <table class="table table-striped" style="text-align:center; border:1px solid #dddddd">
+                <thead>
+                    <tr>
+                        <th colspan="2" style="background-color:#eeeeee; text-align:center;">게시판 글쓰기 양식</th>
+ 
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td><input type="text" class="form-control" placeholder="글 제목"  name="bbsTitle" maxlength="50" ></td>
+                    </tr>
+                    <tr>
+                    <td><textarea class="form-control" placeholder="글 내용"  name="bbsContent" maxlength="2048" style="height:350px" ></textarea></td>
+                    </tr>
+                </tbody>
+            </table>
+                <input type="submit"  class="btn btn-primary pull-right" value="글쓰기">
+            </form>
+        </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="js/bootstrap.js"></script>
