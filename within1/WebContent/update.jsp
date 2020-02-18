@@ -18,12 +18,20 @@
     {
         userID = (String)session.getAttribute("userID");
     }
-    int bbsID = 0;
-    if (request.getParameter("bbsID") != null)
+    if (userID == null)
+    {
+        PrintWriter script = response.getWriter();
+        script.println("<script>");
+        script.println("alert('로그인을 하세요')");
+        script.println("location.href = 'login.jsp'");
+        script.println("</script>");
+    }
+    int bbsID = 0; // 현재 아이디값이 들어오지 않은 상태
+    if (request.getParameter("bbsID") != null) // 아이디가 존재
     {
         bbsID = Integer.parseInt(request.getParameter("bbsID"));
     }
-    if (bbsID == 0)
+    if (bbsID == 0) // 아이디가 없음
     {
         PrintWriter script = response.getWriter();
         script.println("<script>");
@@ -31,7 +39,16 @@
         script.println("location.href = 'bbs.jsp'");
         script.println("</script>");
     }
-    Bbs bbs = new BbsDAO().getBbs(bbsID);
+    Bbs bbs = new BbsDAO().getBbs(bbsID); // id값을 가지고 bbs(글)을 가져온다
+    if (!userID.equals(bbs.getUserID())) //id가 동일하지 않은 상태
+    {
+        PrintWriter script = response.getWriter();
+        script.println("<script>");
+        script.println("alert('권한이 없습니다')");
+        script.println("location.href = 'bbs.jsp'");
+        script.println("</script>");
+    }
+    
 %>
     <nav class ="navbar navbar-default">
         <div class="navbar-header"> <!-- 홈페이지의 로고 -->
@@ -49,7 +66,7 @@
                 <li><a href="main.jsp">메인</a></li>
                 <li class="active"><a href="bbs.jsp">게시판</a></li>
             </ul>
-            <%
+<%--        <% // 이미 위에서 로그인 세션 처리를 했기 떄문에 이 부분이 필요없다. 따라서 이미 로그인이 되어있는 상태라고 가정.
             // 접속하기는 로그인이 되어있지 않은 경우만 나오게한다
                 if(userID == null)
                 {
@@ -68,7 +85,8 @@
             <%
             // 로그인이 되어있는 사람만 볼수 있는 화면
                 } else {
-            %>
+            %> 
+--%>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                 <a href="#" class = "dropdown-toggle"
@@ -79,53 +97,34 @@
                     </ul>
                 </li>
             </ul>
+<%--             
             <%
                 }
-            %>
+            %> 
+--%>
         </div>
     </nav>
     <div class="container">
         <div class="row">
+        <form method="post" action="updateAction.jsp?bbsID=<%=bbsID%>">
             <table class="table table-striped" style="text-align:center; border:1px solid #dddddd">
                 <thead>
                     <tr>
-                        <th colspan="3" style="background-color:#eeeeee; text-align:center;">게시판 글 보기</th>
+                        <th colspan="2" style="background-color:#eeeeee; text-align:center;">게시판 글 수정 양식</th>
  
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td style="width:20%;">글 제목</td>
-                        <td colspan="2"><%= bbs.getBbsTitle().replaceAll(" ","&nbsp;").replaceAll("<","&lt;").replaceAll(">", "&gt;").replaceAll("\n","<br>") %></td>
+                        <td><input type="text" class="form-control" placeholder="글 제목"  name="bbsTitle" maxlength="50" value="<%=bbs.getBbsTitle() %>" ></td>
                     </tr>
                     <tr>
-                        <td>작성자</td>
-                        <td colspan="2"></td>
-                    </tr>
-                    <tr>
-                        <td>작성일자</td>
-                        <td colspan="2"><%= bbs.getBbsDate().substring(0,11) + bbs.getBbsDate().substring(11, 13) + "시" 
-                                + bbs.getBbsDate().substring(14,16) + "분"  %></td>
-                    </tr>
-                    <tr>
-                        <td>내용</td>
-                        <td colspan="2" style="min-height:200px; text-align:left;">
-                        <!-- 특수문자를 제대로 출력하기위해 & 악성스크립트를 방지하기위해 -->
-                        <%= bbs.getBbsContent().replaceAll(" ","&nbsp;").replaceAll("<","&lt;").replaceAll(">", "&gt;").replaceAll("\n","<br>") %></td>    
+                        <td><textarea class="form-control" placeholder="글 내용"  name="bbsContent" maxlength="2048" style="height:350px"><%=bbs.getBbsContent() %></textarea></td>
                     </tr>
                 </tbody>
             </table>
-            <a href="bbs.jsp" class="btn btn-primary">목록</a>
-            <%
-                if(userID != null && userID.equals(bbs.getUserID()))
-                {
-            %>
-                <a href="update.jsp?bbsID=<%=bbsID %>" class="btn btn-primary">수정</a>
-                <a onclick="return confirm('정말로 삭제하시겠습니까?')" href="deleteAction.jsp?bbsID=<%=bbsID %>" class="btn btn-primary">삭제</a>
-                
-            <%     
-                }
-            %>
+                <input type="submit"  class="btn btn-primary pull-right" value="글수정">
+            </form>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
