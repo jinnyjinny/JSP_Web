@@ -1,5 +1,5 @@
 # JSP
-This is a web site including board, login, logout and join that made by Bootstrap and using JSP.
+It is a website with board, login, logout and join function that made by Bootstrap and using JSP.
 
 
 
