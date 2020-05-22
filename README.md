@@ -7,7 +7,7 @@ It is a website with board, login, logout and join function that made by a Boots
 <img width="540" src="https://user-images.githubusercontent.com/49601361/82676865-09a96780-9c82-11ea-84d2-6ba41902759e.png"><br>
 <br>
 ## 회원가입
-<img width="540" src="https://user-images.githubusercontent.com/49601361/82676865-09a96780-9c82-11ea-84d2-6ba41902759e.png"><br>
+<img width="540" src="https://user-images.githubusercontent.com/49601361/82677059-62790000-9c82-11ea-9adc-bd7f7d37ef4c.png"><br>
 <br>
 ## 로그인 
 <img width="540" src="https://user-images.githubusercontent.com/49601361/82676998-45443180-9c82-11ea-8f1b-46d8803b6cbb.png"><br>
